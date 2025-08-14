@@ -1,11 +1,11 @@
 package me.ichun.mods.ichunutil.api.common.head;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -52,63 +52,63 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getHeadJointOffset(E living, MatrixStack stack, float partialTick, int head)
+    public float[] getHeadJointOffset(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHeadJointOffset(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getEyeOffsetFromJoint(E living, MatrixStack stack, float partialTick, int eye)
+    public float[] getEyeOffsetFromJoint(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getEyeOffsetFromJoint(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeSideOffset(E living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeSideOffset(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getEyeSideOffset(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeScale(E living, MatrixStack stack, float partialTick, int eye) //base eye scale size
+    public float getEyeScale(E living, PoseStack stack, float partialTick, int eye) //base eye scale size
     {
         return delegate.getEyeScale(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeRotation(E living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeRotation(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getEyeRotation(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeTopRotation(E living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeTopRotation(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getEyeTopRotation(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getIrisScale(E living, MatrixStack stack, float partialTick, int eye)
+    public float getIrisScale(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getIrisScale(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getCorneaColours(E living, MatrixStack stack, float partialTick, int eye)
+    public float[] getCorneaColours(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getCorneaColours(living, stack, partialTick, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getIrisColours(E living, MatrixStack stack, float partialTick, int eye)
+    public float[] getIrisColours(E living, PoseStack stack, float partialTick, int eye)
     {
         return delegate.getIrisColours(living, stack, partialTick, eye);
     }
@@ -117,49 +117,49 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
     //HEAD FUNCTIONS
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getHatOffsetFromJoint(E living, MatrixStack stack, float partialTick, int head)
+    public float[] getHatOffsetFromJoint(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHatOffsetFromJoint(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHatScale(E living, MatrixStack stack, float partialTick, int head)
+    public float getHatScale(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHatScale(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHatYaw(E living, MatrixStack stack, float partialTick, int head)
+    public float getHatYaw(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHatYaw(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHatPitch(E living, MatrixStack stack, float partialTick, int head)
+    public float getHatPitch(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHatPitch(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadYaw(E living, MatrixStack stack, float partialTick, int head, int eye)
+    public float getHeadYaw(E living, PoseStack stack, float partialTick, int head, int eye)
     {
         return delegate.getHeadYaw(living, stack, partialTick, head, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadPitch(E living, MatrixStack stack, float partialTick, int head, int eye)
+    public float getHeadPitch(E living, PoseStack stack, float partialTick, int head, int eye)
     {
         return delegate.getHeadPitch(living, stack, partialTick, head, eye);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadRoll(E living, MatrixStack stack, float partialTick, int head, int eye)
+    public float getHeadRoll(E living, PoseStack stack, float partialTick, int head, int eye)
     {
         return delegate.getHeadRoll(living, stack, partialTick, head, eye);
     }
@@ -185,46 +185,46 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getHeadArmorOffset(E living, MatrixStack stack, float partialTick, int head)
+    public float[] getHeadArmorOffset(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHeadArmorOffset(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadArmorScale(E living, MatrixStack stack, float partialTick, int head)
+    public float getHeadArmorScale(E living, PoseStack stack, float partialTick, int head)
     {
         return delegate.getHeadArmorScale(living, stack, partialTick, head);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void postHeadTranslation(E living, MatrixStack stack, float partialTick)
+    public void postHeadTranslation(E living, PoseStack stack, float partialTick)
     {
         delegate.postHeadTranslation(living, stack, partialTick);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void preChildEntHeadRenderCalls(E living, MatrixStack stack, LivingRenderer<E, ?> render)
+    public void preChildEntHeadRenderCalls(E living, PoseStack stack, LivingEntityRenderer<E, ?> render)
     {
         delegate.preChildEntHeadRenderCalls(living, stack, render);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void translateRotateToChild(E living, MatrixStack stack, ModelRenderer renderer)
+    public void translateRotateToChild(E living, PoseStack stack, ModelPart renderer)
     {
         delegate.translateRotateToChild(living, stack, renderer);
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean setup(E living, LivingRenderer renderer)
+    public boolean setup(E living, LivingEntityRenderer renderer)
     {
         delegate = null;
 
-        EntityModel model = renderer.getEntityModel();
+        EntityModel model = renderer.getModel();
         for(HeadInfo head : multiModel)
         {
             if(head.forClass.startsWith("horseEasterEgg"))
@@ -255,11 +255,11 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
     @SuppressWarnings("rawtypes")
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void setHeadModel(E living, LivingRenderer renderer)
+    public void setHeadModel(E living, LivingEntityRenderer renderer)
     {
         if(delegate.headModel == null || aggressiveHeadTracking.getAsInt() == 1 || aggressiveHeadTracking.getAsInt() == 2 && renderer instanceof PlayerRenderer)
         {
-            delegate.setHeadModelFromRenderer(living, renderer, renderer.getEntityModel());
+            delegate.setHeadModelFromRenderer(living, renderer, renderer.getModel());
         }
     }
 

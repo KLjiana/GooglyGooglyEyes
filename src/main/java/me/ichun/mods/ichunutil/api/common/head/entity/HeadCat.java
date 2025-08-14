@@ -1,18 +1,18 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadCat extends HeadInfo<CatEntity>
+public class HeadCat extends HeadInfo<Cat>
 {
     public float[][] pupilColourAssortment;
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getIrisColours(CatEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getIrisColours(Cat living, PoseStack stack, float partialTick, int eye)
     {
         rand.setSeed(Math.abs(living.hashCode()) * 1231L);
         return pupilColourAssortment[rand.nextInt(pupilColourAssortment.length)];

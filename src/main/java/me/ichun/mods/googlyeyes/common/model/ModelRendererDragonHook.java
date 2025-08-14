@@ -8,30 +8,28 @@ import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfoDelegate;
 import me.ichun.mods.ichunutil.common.head.HeadHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 
-public class ModelRendererDragonHook extends ModelRenderer
-{
-    private static final ResourceLocation TEX_GOOGLY_EYE = new ResourceLocation("googlyeyes","textures/model/modelgooglyeye.png");
+public class ModelRendererDragonHook extends ModelPart {
+    private static final ResourceLocation TEX_GOOGLY_EYE = new ResourceLocation("googlyeyes", "textures/model/modelgooglyeye.png");
     private static final RenderType RENDER_TYPE = RenderType.getEntityCutout(TEX_GOOGLY_EYE);
     private static final RenderType RENDER_TYPE_EYES = RenderType.getEyes(TEX_GOOGLY_EYE);
     private static final RenderType RENDER_TYPE_RESET = RenderType.getEyes(new ResourceLocation("textures/entity/enderdragon/dragon_eyes.png"));
     private final ModelGooglyEye modelGooglyEye;
 
 
-    public EnderDragonRenderer.EnderDragonModel parentModel;
+    public EnderDragonRenderer.DragonModel parentModel;
     public int renderCount;
     public float lastPartialTick;
 
-    public ModelRendererDragonHook(EnderDragonRenderer.EnderDragonModel model)
-    {
+    public ModelRendererDragonHook(EnderDragonRenderer.DragonModel model) {
         super(model);
         this.modelGooglyEye = new ModelGooglyEye();
 
@@ -40,14 +38,12 @@ public class ModelRendererDragonHook extends ModelRenderer
 
     @Override
     @SuppressWarnings("unchecked")
-    public void render(MatrixStack stack, IVertexBuilder bufferInUnused, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
-    {
-        if(parentModel.dragonInstance == null)
-        {
+    public void render(MatrixStack stack, IVertexBuilder bufferInUnused, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        if (parentModel.dragonInstance == null) {
             return;
         }
 
-        if(lastPartialTick != parentModel.partialTicks) // new render
+        if (lastPartialTick != parentModel.partialTicks) // new render
         {
             lastPartialTick = parentModel.partialTicks;
             renderCount = 0;
@@ -55,18 +51,16 @@ public class ModelRendererDragonHook extends ModelRenderer
         renderCount++;
 
         boolean render = renderCount == 3;
-        if(renderCount == 2 && !(parentModel.dragonInstance.deathTicks > 0))
-        {
+        if (renderCount == 2 && !(parentModel.dragonInstance.deathTicks > 0)) {
             render = true;
         }
 
-        if(!render)
-        {
+        if (!render) {
             return;
         }
 
         HeadInfo helper = HeadHandler.getHelper(parentModel.dragonInstance.getClass());
-        if(helper == null || helper.noFaceInfo || helper instanceof HeadInfoDelegate) //Dragons are special, do not allow HeadInfoDelegate.
+        if (helper == null || helper.noFaceInfo || helper instanceof HeadInfoDelegate) //Dragons are special, do not allow HeadInfoDelegate.
         {
             return;
         }
@@ -75,8 +69,7 @@ public class ModelRendererDragonHook extends ModelRenderer
 
         GooglyTracker tracker = GooglyEyes.eventHandler.getGooglyTracker(parentModel.dragonInstance, helper);
         tracker.setLastUpdateRequest();
-        if(!tracker.shouldRender())
-        {
+        if (!tracker.shouldRender()) {
             return;
         }
         tracker.requireUpdate();
@@ -85,20 +78,17 @@ public class ModelRendererDragonHook extends ModelRenderer
 
         int headCount = helper.getHeadCount(living);
 
-        for(int headIndex = 0; headIndex < headCount; headIndex++)
-        {
+        for (int headIndex = 0; headIndex < headCount; headIndex++) {
             stack.push();
 
             helper.correctPosition(living, stack, lastPartialTick);
 
             int eyeCount = helper.getEyeCount(living);
 
-            for(int i = 0; i < eyeCount; i++)
-            {
+            for (int i = 0; i < eyeCount; i++) {
                 float eyeScale = helper.getEyeScale(living, stack, lastPartialTick, i);
 
-                if(eyeScale <= 0F)
-                {
+                if (eyeScale <= 0F) {
                     continue;
                 }
 
@@ -130,8 +120,7 @@ public class ModelRendererDragonHook extends ModelRenderer
                 modelGooglyEye.renderIris(stack, buffer, packedLightIn, overlay, irisColours[0], irisColours[1], irisColours[2], 1F);
                 stack.pop();
 
-                if(helper.doesEyeGlow(living, i))
-                {
+                if (helper.doesEyeGlow(living, i)) {
                     buffer = bufferIn.getBuffer(RENDER_TYPE_EYES);
                     modelGooglyEye.renderCornea(stack, buffer, packedLightIn, overlay, corneaColours[0], corneaColours[1], corneaColours[2], 1F);
 

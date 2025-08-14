@@ -1,14 +1,14 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 
-public class HeadWither extends HeadInfo<WitherEntity>
+public class HeadWither extends HeadInfo<WitherBoss>
 {
     //These are only here cause of Googly Eyes
 
     @Override
-    public float getHeadYaw(WitherEntity living, float partialTick, int head, int eye)
+    public float getHeadYaw(WitherBoss living, float partialTick, int head, int eye)
     {
         if(head >= 0)
         {
@@ -18,7 +18,7 @@ public class HeadWither extends HeadInfo<WitherEntity>
             }
             else
             {
-                return living.getHeadYRotation(head % 2); //Bear in mind the function is only in the client.
+                return living.getHeadYRot(head % 2); //Bear in mind the function is only in the client.
             }
         }
         else
@@ -29,13 +29,13 @@ public class HeadWither extends HeadInfo<WitherEntity>
             }
             else
             {
-                return living.getHeadYRotation(eye <= 3 ? 1 : 0); //Bear in mind the function is only in the client.
+                return living.getHeadYRot(eye <= 3 ? 1 : 0); //Bear in mind the function is only in the client.
             }
         }
     }
 
     @Override
-    public float getHeadPitch(WitherEntity living, float partialTick, int head, int eye)
+    public float getHeadPitch(WitherBoss living, float partialTick, int head, int eye)
     {
         if(head >= 0)
         {
@@ -45,7 +45,7 @@ public class HeadWither extends HeadInfo<WitherEntity>
             }
             else
             {
-                return living.getHeadXRotation(head % 2); //Bear in mind the function is only in the client.
+                return living.getHeadXRot(head % 2); //Bear in mind the function is only in the client.
             }
         }
         else
@@ -56,7 +56,7 @@ public class HeadWither extends HeadInfo<WitherEntity>
             }
             else
             {
-                return living.getHeadXRotation(eye <= 3 ? 1 : 0); //Bear in mind the function is only in the client.
+                return living.getHeadXRot(eye <= 3 ? 1 : 0); //Bear in mind the function is only in the client.
             }
         }
     }

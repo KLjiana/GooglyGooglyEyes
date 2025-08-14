@@ -1,18 +1,18 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.world.entity.ambient.Bat;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadBat extends HeadInfo<BatEntity>
+public class HeadBat extends HeadInfo<Bat>
 {
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadYaw(BatEntity living, MatrixStack stack, float partialTick, int head, int eye)
+    public float getHeadYaw(Bat living, PoseStack stack, float partialTick, int head, int eye)
     {
-        if(living.getIsBatHanging())
+        if(living.isResting())
         {
             return -super.getHeadYaw(living, stack, partialTick, head, eye);
         }
@@ -24,9 +24,9 @@ public class HeadBat extends HeadInfo<BatEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHeadYaw(BatEntity living, float partialTick, int head, int eye)
+    public float getHeadYaw(Bat living, float partialTick, int head, int eye)
     {
-        if(living.getIsBatHanging())
+        if(living.isResting())
         {
             return -super.getHeadYaw(living, partialTick, head, eye);
         }

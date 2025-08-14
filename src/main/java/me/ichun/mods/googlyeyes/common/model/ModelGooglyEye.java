@@ -1,10 +1,8 @@
 package me.ichun.mods.googlyeyes.common.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.Model;
-import net.minecraft.client.renderer.model.ModelRenderer;
 
 /**
  * Googly Eyes - iChun
@@ -12,13 +10,13 @@ import net.minecraft.client.renderer.model.ModelRenderer;
  */
 public class ModelGooglyEye extends Model
 {
-    public ModelRenderer cornea1;
-    public ModelRenderer cornea2;
-    public ModelRenderer cornea3;
-    public ModelRenderer cornea4;
-    public ModelRenderer cornea5;
-    public ModelRenderer cornea6;
-    public ModelRenderer[] iris = new ModelRenderer[3];
+    public ModelPart cornea1;
+    public ModelPart cornea2;
+    public ModelPart cornea3;
+    public ModelPart cornea4;
+    public ModelPart cornea5;
+    public ModelPart cornea6;
+    public ModelPart[] iris = new ModelPart[3];
 
     public ModelGooglyEye()
     {
@@ -27,46 +25,46 @@ public class ModelGooglyEye extends Model
         this.textureWidth = 64;
         this.textureHeight = 32;
 
-        this.cornea1 = new ModelRenderer(this, 0, 0);
+        this.cornea1 = new ModelPart(this, 0, 0);
         this.cornea1.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea1.addBox(-0.5F, -1.865F, -1.03F, 1, 3.73F, 1, 0.0F);
 
-        this.cornea2 = new ModelRenderer(this, 0, 0);
+        this.cornea2 = new ModelPart(this, 0, 0);
         this.cornea2.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea2.addBox(-0.5F, -1.865F, -1.0F, 1, 3.73F, 1, 0.0F);
         this.setRotateAngle(cornea2, 0.0F, -0.0F, 0.5235987755982988F);
 
-        this.cornea3 = new ModelRenderer(this, 0, 0);
+        this.cornea3 = new ModelPart(this, 0, 0);
         this.cornea3.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea3.addBox(-0.5F, -1.865F, -1.02F, 1, 3.73F, 1, 0.0F);
         this.setRotateAngle(cornea3, 0.0F, 0.0F, 1.0471975511965976F);
 
-        this.cornea4 = new ModelRenderer(this, 0, 0);
+        this.cornea4 = new ModelPart(this, 0, 0);
         this.cornea4.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea4.addBox(-0.5F, -1.865F, -0.99F, 1, 3.73F, 1, 0.0F);
         this.setRotateAngle(cornea4, 0.0F, -0.0F, 1.5707963267948966F);
 
-        this.cornea5 = new ModelRenderer(this, 0, 0);
+        this.cornea5 = new ModelPart(this, 0, 0);
         this.cornea5.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea5.addBox(-0.5F, -1.865F, -1.01F, 1, 3.73F, 1, 0.0F);
         this.setRotateAngle(cornea5, 0.0F, -0.0F, 2.0943951023931953F);
 
-        this.cornea6 = new ModelRenderer(this, 0, 0);
+        this.cornea6 = new ModelPart(this, 0, 0);
         this.cornea6.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.cornea6.addBox(-0.5F, -1.865F, -0.98F, 1, 3.73F, 1, 0.0F);
         this.setRotateAngle(cornea6, 0.0F, -0.0F, 2.6179938779914944F);
 
-        iris[0] = new ModelRenderer(this, 0, 0);
+        iris[0] = new ModelPart(this, 0, 0);
         iris[0].setRotationPoint(0.0F, 0.0F, 0.0F);
         iris[0].addBox(-0.5F, -0.8665F, -1.51F, 1, 1.733F, 1, 0.0F);
         this.setRotateAngle(iris[0], 0.0F, -0.0F, 2.0943951023931953F);
 
-        iris[1] = new ModelRenderer(this, 0, 0);
+        iris[1] = new ModelPart(this, 0, 0);
         iris[1].setRotationPoint(0.0F, 0.0F, 0.0F);
         iris[1].addBox(-0.5F, -0.8665F, -1.5F, 1, 1.733F, 1, 0.0F);
         this.setRotateAngle(iris[1], 0.0F, -0.0F, 1.0471975511965976F);
 
-        iris[2] = new ModelRenderer(this, 0, 0);
+        iris[2] = new ModelPart(this, 0, 0);
         iris[2].setRotationPoint(0.0F, 0.0F, 0.0F);
         iris[2].addBox(-0.5F, -0.8665F, -1.49F, 1, 1.733F, 1, 0.0F);
     }
@@ -109,7 +107,7 @@ public class ModelGooglyEye extends Model
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+    public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
         modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;

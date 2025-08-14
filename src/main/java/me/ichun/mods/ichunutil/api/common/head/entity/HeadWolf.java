@@ -1,17 +1,17 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.WolfModel;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.WolfModel;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadWolf extends HeadInfo<WolfEntity>
+public class HeadWolf extends HeadInfo<Wolf>
 {
     public float[] eyeOffsetTame = new float[] { -1F/16F, 1F/16F, 2F/16F };
     public float[] irisColourAngry = new float[] { 182F / 255F, 15F / 255F, 15F / 255F };
@@ -19,9 +19,9 @@ public class HeadWolf extends HeadInfo<WolfEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeScale(WolfEntity living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeScale(Wolf living, PoseStack stack, float partialTick, int eye)
     {
-        if(living.isTamed())
+        if(living.isTame())
         {
             return 0.75F;
         }
@@ -30,22 +30,22 @@ public class HeadWolf extends HeadInfo<WolfEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void postHeadTranslation(WolfEntity living, MatrixStack stack, float partialTick)
+    public void postHeadTranslation(Wolf living, PoseStack stack, float partialTick)
     {
         super.postHeadTranslation(living, stack, partialTick);
 
-        EntityModel model = ((LivingRenderer)Minecraft.getInstance().getRenderManager().getRenderer(living)).getEntityModel();
-        if(model instanceof WolfModel)
+        EntityModel<?> model = ((LivingEntityRenderer<?, ?>)Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living)).getModel();
+        if(model instanceof WolfModel wolfModel)
         {
-            stack.rotate(Vector3f.ZP.rotation(((WolfModel)model).headChild.rotateAngleZ)); //silly workaround
+            stack.mulPose(Axis.ZP.rotation(wolfModel.realHead.rotateAngleZ)); //silly workaround
         }
     }
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getEyeOffsetFromJoint(WolfEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getEyeOffsetFromJoint(Wolf living, PoseStack stack, float partialTick, int eye)
     {
-        if(living.isTamed())
+        if(living.isTame())
         {
             return eyeOffsetTame;
         }
@@ -54,7 +54,7 @@ public class HeadWolf extends HeadInfo<WolfEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getCorneaColours(WolfEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getCorneaColours(Wolf living, PoseStack stack, float partialTick, int eye)
     {
         if(living.isAngry()) //func_233678_J__
         {
@@ -65,7 +65,7 @@ public class HeadWolf extends HeadInfo<WolfEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getIrisColours(WolfEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getIrisColours(Wolf living, PoseStack stack, float partialTick, int eye)
     {
         if(living.isAngry()) //func_233678_J__
         {
@@ -75,8 +75,8 @@ public class HeadWolf extends HeadInfo<WolfEntity>
     }
 
     @Override
-    public float getHeadRoll(WolfEntity living, float partialTick, int head, int eye)
+    public float getHeadRoll(Wolf living, float partialTick, int head, int eye)
     {
-        return living.getInterestedAngle(partialTick) + living.getShakeAngle(partialTick, 0.0F);
+        return living.getHeadRollAngle(partialTick) + living.getBodyRollAngle(partialTick, 0.0F);
     }
 }

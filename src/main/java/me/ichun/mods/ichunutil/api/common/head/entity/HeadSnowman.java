@@ -1,12 +1,12 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.passive.SnowGolemEntity;
+import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadSnowman extends HeadInfo<SnowGolemEntity>
+public class HeadSnowman extends HeadInfo<SnowGolem>
 {
     public float[] eyeOffsetNoPumpkinLeft = new float[] { 0F, 5.5F/16F, 3.5F/16F };
     public float[] eyeOffsetNoPumpkinRight = new float[] { 0F, 6F/16F, 3.5F/16F };
@@ -15,9 +15,9 @@ public class HeadSnowman extends HeadInfo<SnowGolemEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getEyeOffsetFromJoint(SnowGolemEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getEyeOffsetFromJoint(SnowGolem living, PoseStack stack, float partialTick, int eye)
     {
-        if(living.isPumpkinEquipped())
+        if(living.hasPumpkin())
         {
             return eyeOffset;
         }
@@ -33,9 +33,9 @@ public class HeadSnowman extends HeadInfo<SnowGolemEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeScale(SnowGolemEntity living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeScale(SnowGolem living, PoseStack stack, float partialTick, int eye)
     {
-        if(living.isPumpkinEquipped())
+        if(living.hasPumpkin())
         {
             return eyeScale;
         }
@@ -47,9 +47,9 @@ public class HeadSnowman extends HeadInfo<SnowGolemEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getHatOffsetFromJoint(SnowGolemEntity living, MatrixStack stack, float partialTick, int head)
+    public float[] getHatOffsetFromJoint(SnowGolem living, PoseStack stack, float partialTick, int head)
     {
-        if(living.isPumpkinEquipped())
+        if(living.hasPumpkin())
         {
             return super.getHatOffsetFromJoint(living, stack, partialTick, head);
         }
@@ -62,9 +62,9 @@ public class HeadSnowman extends HeadInfo<SnowGolemEntity>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getHatScale(SnowGolemEntity living, MatrixStack stack, float partialTick, int head)
+    public float getHatScale(SnowGolem living, PoseStack stack, float partialTick, int head)
     {
-        if(living.isPumpkinEquipped())
+        if(living.hasPumpkin())
         {
             return super.getHatScale(living, stack, partialTick, head);
         }

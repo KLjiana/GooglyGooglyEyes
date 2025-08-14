@@ -4,9 +4,7 @@ import me.ichun.mods.googlyeyes.common.GooglyEyes;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Random;

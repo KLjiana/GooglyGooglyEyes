@@ -7,42 +7,37 @@ import me.ichun.mods.googlyeyes.common.tracker.GooglyTracker;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class EventHandler
-{
+public class EventHandler {
     protected WeakHashMap<LivingEntity, GooglyTracker> trackers = new WeakHashMap<>();
 
     @SubscribeEvent
-    public void onWorldTick(TickEvent.ClientTickEvent event)
-    {
-        if(event.phase == TickEvent.Phase.END)
-        {
-            if(Minecraft.getInstance().world != null && !Minecraft.getInstance().isGamePaused())
-            {
+    public void onWorldTick(TickEvent.ClientTickEvent event) {
+        if (event.phase == TickEvent.Phase.END) {
+            if (Minecraft.getInstance().level != null && !Minecraft.getInstance().isPaused()) {
                 Iterator<Map.Entry<LivingEntity, GooglyTracker>> ite = trackers.entrySet().iterator();
-                while(ite.hasNext())
-                {
+                while (ite.hasNext()) {
                     Map.Entry<LivingEntity, GooglyTracker> e = ite.next();
                     GooglyTracker tracker = e.getValue();
-                    if(GooglyEyes.eventHandlerClient.ticks - tracker.lastUpdateRequest > 10)
-                    {
+                    if (GooglyEyes.eventHandlerClient.ticks - tracker.lastUpdateRequest > 10) {
                         ite.remove();
-                    }
-                    else
-                    {
+                    } else {
                         tracker.update();
                     }
                 }
@@ -51,28 +46,22 @@ public class EventHandler
     }
 
     @SubscribeEvent
-    public void onWorldUnload(WorldEvent.Unload event)
-    {
-        if(event.getWorld().isRemote())
-        {
+    public void onWorldUnload(LevelEvent.Unload event) {
+        if (event.getLevel().isClientSide()) {
             Iterator<Map.Entry<LivingEntity, GooglyTracker>> ite = trackers.entrySet().iterator();
-            while(ite.hasNext())
-            {
+            while (ite.hasNext()) {
                 Map.Entry<LivingEntity, GooglyTracker> e = ite.next();
                 GooglyTracker tracker = e.getValue();
-                if(tracker.parent.getEntityWorld() == event.getWorld())
-                {
+                if (tracker.parent.level() == event.getLevel()) {
                     ite.remove();
                 }
             }
         }
     }
 
-    public GooglyTracker getGooglyTracker(LivingEntity living, HeadInfo<?> helper)
-    {
+    public GooglyTracker getGooglyTracker(LivingEntity living, HeadInfo<?> helper) {
         GooglyTracker tracker = trackers.get(living);
-        if(tracker == null)
-        {
+        if (tracker == null) {
             tracker = new GooglyTracker(living, helper);
             trackers.put(living, tracker);
         }
@@ -80,47 +69,37 @@ public class EventHandler
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public void addLayers()
-    {
+    public void addLayers() {
         LayerGooglyEyes layerGooglyEyes = new LayerGooglyEyes();
 
-        HashSet<LivingRenderer> addedRenderers = new HashSet<>();
+        HashSet<LivingEntityRenderer> addedRenderers = new HashSet<>();
 
-        EntityRendererManager renderManager = Minecraft.getInstance().getRenderManager();
-        if(!(GooglyEyes.config.disabledGoogly.contains("minecraft:player") || GooglyEyes.config.disabledGoogly.contains("player")))
-        {
-            Map<String, PlayerRenderer> skinMap = renderManager.getSkinMap();
-            for(Map.Entry<String, PlayerRenderer> e : skinMap.entrySet())
-            {
-                e.getValue().addLayer(layerGooglyEyes);
-                addedRenderers.add(e.getValue());
+        EntityRenderDispatcher renderManager = Minecraft.getInstance().getEntityRenderDispatcher();
+        if (!(GooglyEyes.config.disabledGoogly.contains("minecraft:player") || GooglyEyes.config.disabledGoogly.contains("player"))) {
+            Map<String, EntityRenderer<? extends Player>> skinMap = renderManager.getSkinMap();
+            for (Map.Entry<String, EntityRenderer<? extends Player>> entry : skinMap.entrySet()) {
+                PlayerRenderer playerRenderer = (PlayerRenderer) entry.getValue();
+                playerRenderer.addLayer(layerGooglyEyes);
+                addedRenderers.add(playerRenderer);
             }
         }
         renderManager.renderers.forEach((entityType, entityRenderer) -> {
-            if(addedRenderers.contains(entityRenderer))
-            {
+            if (addedRenderers.contains(entityRenderer)) {
                 return;
             }
 
-            ResourceLocation rl = entityType.getRegistryName();
-            for(String s : GooglyEyes.config.disabledGoogly)
-            {
+            ResourceLocation rl = ForgeRegistries.ENTITY_TYPES.getKey(entityType);
+            for (String s : GooglyEyes.config.disabledGoogly) {
                 ResourceLocation disabled = new ResourceLocation(s);
-                if(disabled.equals(rl))
-                {
+                if (disabled.equals(rl)) {
                     return;
                 }
             }
 
-            if(entityRenderer instanceof LivingRenderer)
-            {
-                LivingRenderer renderer = (LivingRenderer)entityRenderer;
+            if (entityRenderer instanceof LivingEntityRenderer renderer) {
                 renderer.addLayer(layerGooglyEyes);
-            }
-            else if(entityRenderer instanceof EnderDragonRenderer)
-            {
-                EnderDragonRenderer dragonRenderer = (EnderDragonRenderer)entityRenderer;
-                dragonRenderer.model.head.addChild(new ModelRendererDragonHook(dragonRenderer.model));
+            } else if (entityRenderer instanceof EnderDragonRenderer dragonRenderer) {
+                dragonRenderer.model.head.children.put("googlyEye", new ModelRendererDragonHook(dragonRenderer.model));
             }
         });
     }

@@ -1,12 +1,12 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.monster.SpiderEntity;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadSpider extends HeadInfo<SpiderEntity> //TODO remove this in 1.17+, use WenXin's workaround with additional heads
+public class HeadSpider extends HeadInfo<Spider> //TODO remove this in 1.17+, use WenXin's workaround with additional heads
 {
     public float halfInterpupillaryDistance2 = 2F / 16F;
     public float halfInterpupillaryDistance3 = 4F / 16F;
@@ -15,7 +15,7 @@ public class HeadSpider extends HeadInfo<SpiderEntity> //TODO remove this in 1.1
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeSideOffset(SpiderEntity living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeSideOffset(Spider living, PoseStack stack, float partialTick, int eye)
     {
         if(eye <= 1)
         {
@@ -33,7 +33,7 @@ public class HeadSpider extends HeadInfo<SpiderEntity> //TODO remove this in 1.1
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getEyeRotation(SpiderEntity living, MatrixStack stack, float partialTick, int eye)
+    public float getEyeRotation(Spider living, PoseStack stack, float partialTick, int eye)
     {
         if(eye >= 4)
         {
@@ -44,7 +44,7 @@ public class HeadSpider extends HeadInfo<SpiderEntity> //TODO remove this in 1.1
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float[] getEyeOffsetFromJoint(SpiderEntity living, MatrixStack stack, float partialTick, int eye)
+    public float[] getEyeOffsetFromJoint(Spider living, PoseStack stack, float partialTick, int eye)
     {
         if(eye <= 1)
         {

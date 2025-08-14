@@ -1,20 +1,20 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.client.renderer.entity.LivingRenderer;
-import net.minecraft.entity.passive.RabbitEntity;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadRabbit extends HeadInfo<RabbitEntity>
+public class HeadRabbit extends HeadInfo<Rabbit>
 {
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void preChildEntHeadRenderCalls(RabbitEntity living, MatrixStack stack, LivingRenderer<RabbitEntity, ?> render)
+    public void preChildEntHeadRenderCalls(Rabbit living, PoseStack stack, LivingEntityRenderer<Rabbit, ?> render)
     {
         float scale = 0.0625F;
-        if(living.isChild())
+        if(living.isBaby())
         {
             stack.scale(0.56666666F, 0.56666666F, 0.56666666F);
             stack.translate(0.0F, 22.0F * scale, 2.0F * scale);
