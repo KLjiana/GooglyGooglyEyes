@@ -2,7 +2,6 @@ package me.ichun.mods.googlyeyes.common.tracker;
 
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import me.ichun.mods.ichunutil.common.iChunUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
@@ -178,7 +177,17 @@ public class GooglyTracker
 
     public void setLastUpdateRequest()
     {
-        lastUpdateRequest = iChunUtil.eventHandlerClient.ticks;
+        /*
+            @SubscribeEvent
+            public void onClientTick(TickEvent.ClientTickEvent event)
+            {
+                if(event.phase == TickEvent.Phase.END)
+                {
+                    ticks++;
+                }
+            }
+         */
+        lastUpdateRequest = GooglyEyes.eventHandlerClient.ticks;
     }
 
     public void requireUpdate()

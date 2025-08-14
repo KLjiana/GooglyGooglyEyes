@@ -5,7 +5,6 @@ import me.ichun.mods.googlyeyes.common.layer.LayerGooglyEyes;
 import me.ichun.mods.googlyeyes.common.model.ModelRendererDragonHook;
 import me.ichun.mods.googlyeyes.common.tracker.GooglyTracker;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import me.ichun.mods.ichunutil.common.iChunUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -38,7 +37,7 @@ public class EventHandler
                 {
                     Map.Entry<LivingEntity, GooglyTracker> e = ite.next();
                     GooglyTracker tracker = e.getValue();
-                    if(iChunUtil.eventHandlerClient.ticks - tracker.lastUpdateRequest > 10)
+                    if(GooglyEyes.eventHandlerClient.ticks - tracker.lastUpdateRequest > 10)
                     {
                         ite.remove();
                     }
