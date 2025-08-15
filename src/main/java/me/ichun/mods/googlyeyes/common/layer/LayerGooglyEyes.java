@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("unchecked")
 public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
@@ -26,13 +27,13 @@ public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> e
     private static final RenderType RENDER_TYPE_EYES = RenderType.eyes(TEX_GOOGLY_EYE);
     private final ModelGooglyEye modelGooglyEye;
 
-    public LayerGooglyEyes() {
-        super((RenderLayerParent<T, M>) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(Minecraft.getInstance().player)); // nonnull, we'll just pass the player renderer
+    public LayerGooglyEyes(RenderLayerParent<T, M> renderer) {
+        super(renderer); // nonnull, we'll just pass the player renderer
         this.modelGooglyEye = new ModelGooglyEye();
     }
 
     @Override
-    public void render(PoseStack stack, MultiBufferSource bufferIn, int packedLightIn, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void render(@NotNull PoseStack stack, @NotNull MultiBufferSource bufferIn, int packedLightIn, LivingEntity living, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         HeadInfo parentHelper = HeadHandler.getHelper(living.getClass());
         if (parentHelper != null) {
             EntityRenderer<?> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living);

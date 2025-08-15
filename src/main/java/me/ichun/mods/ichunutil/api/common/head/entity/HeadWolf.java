@@ -37,7 +37,7 @@ public class HeadWolf extends HeadInfo<Wolf>
         EntityModel<?> model = ((LivingEntityRenderer<?, ?>)Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living)).getModel();
         if(model instanceof WolfModel wolfModel)
         {
-            stack.mulPose(Axis.ZP.rotation(wolfModel.realHead.rotateAngleZ)); //silly workaround
+            stack.mulPose(Axis.ZP.rotation(wolfModel.realHead.zRot)); //silly workaround
         }
     }
 

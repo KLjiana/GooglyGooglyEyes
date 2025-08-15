@@ -1,17 +1,21 @@
 package me.ichun.mods.googlyeyes.common.tracker;
 
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
+import me.ichun.mods.googlyeyes.common.core.ModConfigClient;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
-public class GooglyTracker
-{
+public class GooglyTracker {
     public final LivingEntity parent;
     public final HeadInfo helper;
     public final Random rand;
@@ -26,8 +30,7 @@ public class GooglyTracker
 
     public EyeInfo[][] eyes; //[headIndex][eyeIndex]. ew arrays
 
-    public class EyeInfo
-    {
+    public class EyeInfo {
         public float prevRotationYaw;
         public float rotationYaw;
         public float prevRotationPitch;
@@ -43,13 +46,11 @@ public class GooglyTracker
         public float momentumX;
         public float momentumY;
 
-        public EyeInfo()
-        {
+        public EyeInfo() {
             prevDeltaY = deltaY = -1F;
         }
 
-        public void update(HeadInfo helper, int head, int eye, GooglyTracker parent, double motionX, double motionY, double motionZ)
-        {
+        public void update(HeadInfo helper, int head, int eye, GooglyTracker parent, double motionX, double motionY, double motionZ) {
             prevRotationYaw = rotationYaw;
             prevRotationPitch = rotationPitch;
             prevRotationRoll = rotationRoll;
@@ -66,68 +67,59 @@ public class GooglyTracker
             float pitchDiff = rotationPitch - prevRotationPitch;
             float rollDiff = rotationRoll - prevRotationRoll;
 
-            momentumY += motionY * 1.5F + (motionX + motionZ) * rand.nextGaussian() * (0.75F) + (pitchDiff / 45F) + (yawDiff / 180F) + rollDiff * rand.nextGaussian() * (0.05F);
-            momentumX -= (motionX + motionZ) * rand.nextGaussian() * 0.4F + (yawDiff / 45F) + rollDiff * rand.nextGaussian() * (0.05F);
+            momentumY += (float) (motionY * 1.5F + (motionX + motionZ) * rand.nextGaussian() * (0.75F) + (pitchDiff / 45F) + (yawDiff / 180F) + rollDiff * rand.nextGaussian() * (0.05F));
+            momentumX -= (float) ((motionX + motionZ) * rand.nextGaussian() * 0.4F + (yawDiff / 45F) + rollDiff * rand.nextGaussian() * (0.05F));
 
             //Physics based!
             float momentumLoss = 0.9F;
             float newDeltaX = deltaX + momentumX;
             float newDeltaY = deltaY + momentumY;
-            if(newDeltaX < -1F || newDeltaX > 1F)
-            {
+            if (newDeltaX < -1F || newDeltaX > 1F) {
                 float newMo = momentumX * -momentumLoss;
                 float randFloat = 0.8F + rand.nextFloat() * 0.2F;
                 momentumX = newMo * randFloat;
                 momentumY += newMo * (randFloat) * (rand.nextFloat() > 0.5F ? 1F : -1F);
             }
-            if(newDeltaY < -1F || newDeltaY > 1F)
-            {
+            if (newDeltaY < -1F || newDeltaY > 1F) {
                 float newMo = momentumY * -momentumLoss;
                 float randFloat = 0.8F + rand.nextFloat() * 0.2F;
                 momentumY = newMo * randFloat;
                 momentumX += newMo * (1F - randFloat) * (rand.nextFloat() > 0.5F ? 1F : -1F);
-            }
-            else
-            {
-                momentumY -= MathHelper.clamp(1F + deltaY, 0F, 0.1999F);
+            } else {
+                momentumY -= Mth.clamp(1F + deltaY, 0F, 0.1999F);
             }
 
             momentumX *= 0.95F;
             deltaX *= 0.95F;
 
-            if(Math.abs(momentumX) < 0.03F)
-            {
+            if (Math.abs(momentumX) < 0.03F) {
                 momentumX = 0F;
             }
-            if(Math.abs(deltaX) < 0.03F)
-            {
+            if (Math.abs(deltaX) < 0.03F) {
                 deltaX = 0F;
             }
 
             float maxMomentum = 1.3F;
-            momentumX = MathHelper.clamp(momentumX, -maxMomentum, maxMomentum);
-            momentumY = MathHelper.clamp(momentumY, -maxMomentum, maxMomentum);
+            momentumX = Mth.clamp(momentumX, -maxMomentum, maxMomentum);
+            momentumY = Mth.clamp(momentumY, -maxMomentum, maxMomentum);
 
             deltaX += momentumX;
             deltaY += momentumY;
-            deltaX = MathHelper.clamp(deltaX, -1F, 1F);
-            deltaY = MathHelper.clamp(deltaY, -1F, 1F);
+            deltaX = Mth.clamp(deltaX, -1F, 1F);
+            deltaY = Mth.clamp(deltaY, -1F, 1F);
         }
     }
 
 
-    public GooglyTracker(@Nonnull LivingEntity parent, @Nonnull HeadInfo helper)
-    {
+    public GooglyTracker(@Nonnull LivingEntity parent, @Nonnull HeadInfo helper) {
         this.parent = parent;
         this.helper = helper;
-        this.rand = new Random(Math.abs(parent.getUniqueID().hashCode()) * 8134L);
+        this.rand = new Random(Math.abs(parent.getUUID().hashCode()) * 8134L);
         this.renderChance = rand.nextFloat();
         this.eyes = new EyeInfo[helper.getHeadCount(parent)][];
-        for(int i = 0; i < eyes.length; i++)
-        {
+        for (int i = 0; i < eyes.length; i++) {
             this.eyes[i] = new EyeInfo[helper.getHeadInfo(parent, i).getEyeCount(parent)];
-            for(int i1 = 0; i1 < this.eyes[i].length; i1++)
-            {
+            for (int i1 = 0; i1 < this.eyes[i].length; i1++) {
                 this.eyes[i][i1] = new EyeInfo();
             }
         }
@@ -135,46 +127,38 @@ public class GooglyTracker
         update();
     }
 
-    public void update()
-    {
-        if(!shouldUpdate || !shouldRender())
-        {
+    public void update() {
+        if (!shouldUpdate || !shouldRender()) {
             return;
         }
         shouldUpdate = false;
 
-        motionX = parent.getPosX() - parent.prevPosX;
-        motionY = parent.getPosY() - parent.prevPosY;
-        motionZ = parent.getPosZ() - parent.prevPosZ;
+        motionX = parent.getX() - parent.xo;
+        motionY = parent.getY() - parent.yo;
+        motionZ = parent.getZ() - parent.zo;
 
-        if(helper.multiModel != null) //It is a HeadInfoDelegate
+        if (helper.multiModel != null) //It is a HeadInfoDelegate
         {
-            EntityRenderer<?> render = Minecraft.getInstance().getRenderManager().getRenderer(parent);
-            if(!(render instanceof LivingRenderer))
-            {
+            EntityRenderer<?> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(parent);
+            if (!(render instanceof LivingEntityRenderer<?, ?> renderer)) {
                 return;
             }
-            LivingRenderer<?, ?> renderer = (LivingRenderer<?, ?>)render;
 
-            if(!helper.setup(parent, renderer))
-            {
+            if (!helper.setup(parent, renderer)) {
                 return;
             }
         }
 
-        for(int i = 0; i < eyes.length; i++)
-        {
+        for (int i = 0; i < eyes.length; i++) {
             HeadInfo childInfo = helper.getHeadInfo(parent, i);
 
-            for(int i1 = 0; i1 < eyes[i].length; i1++)
-            {
+            for (int i1 = 0; i1 < eyes[i].length; i1++) {
                 eyes[i][i1].update(childInfo, i, i1, this, motionX, motionY, motionZ);
             }
         }
     }
 
-    public void setLastUpdateRequest()
-    {
+    public void setLastUpdateRequest() {
         /*
             @SubscribeEvent
             public void onClientTick(TickEvent.ClientTickEvent event)
@@ -185,30 +169,26 @@ public class GooglyTracker
                 }
             }
          */
-        lastUpdateRequest = GooglyEyes.eventHandlerClient.ticks;
+        lastUpdateRequest = GooglyEyes.eventHandler.ticks;
     }
 
-    public void requireUpdate()
-    {
+    public void requireUpdate() {
         shouldUpdate = true;
     }
 
-    public boolean shouldRender()
-    {
-        String name = parent.getName().getUnformattedComponentText();
-        for(String s : GooglyEyes.config.nameOverride)
-        {
-            if(s.equals(name))
-            {
+    public boolean shouldRender() {
+        String name = parent.getName().getString();
+        for (String s : ModConfigClient.nameOverride.get()) {
+            if (s.equals(name)) {
                 return true;
             }
         }
 
-        if(GooglyEyes.config.entityOverrideChanceParsed.containsKey(parent.getType().getRegistryName()))
-        {
-            return renderChance < GooglyEyes.config.entityOverrideChanceParsed.get(parent.getType().getRegistryName()) / 100F;
+        ResourceLocation key = BuiltInRegistries.ENTITY_TYPE.getKey(parent.getType());
+        if (ModConfigClient.entityOverrideChanceParsed.containsKey(key)) {
+            return renderChance < ModConfigClient.entityOverrideChanceParsed.get(key) / 100F;
         }
 
-        return renderChance < (GooglyEyes.config.googlyEyeChance / 100F);
+        return renderChance < (ModConfigClient.googlyEyeChance.get() / 100F);
     }
 }

@@ -1,18 +1,18 @@
 package me.ichun.mods.ichunutil.api.common.head.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
-import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeadEnderman extends HeadInfo<EndermanEntity>
+public class HeadEnderman extends HeadInfo<EnderMan>
 {
     @OnlyIn(Dist.CLIENT)
     @Override
-    public float getIrisScale(EndermanEntity living, MatrixStack stack, float partialTick, int eye)
+    public float getIrisScale(EnderMan living, PoseStack stack, float partialTick, int eye)
     {
-        if(living.isScreaming())
+        if(living.isCreepy())
         {
             return 0.4F;
         }

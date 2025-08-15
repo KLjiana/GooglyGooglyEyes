@@ -1,33 +1,10 @@
 package me.ichun.mods.ichunutil.client.core;
 
-import me.ichun.mods.ichunutil.client.gui.config.WorkspaceConfigs;
-import me.ichun.mods.ichunutil.client.render.RenderHelper;
-import me.ichun.mods.ichunutil.common.util.ObfHelper;
-import net.minecraft.client.gui.screen.IngameMenuScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class EventHandlerClient
-{
-    public int ticks;
+public class EventHandlerClient {
 
-    public float partialTick;
-
-
-    @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event)
-    {
-        if(event.phase == TickEvent.Phase.END)
-        {
-            ticks++;
-        }
-    }
 
 
 //    @SubscribeEvent
