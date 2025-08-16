@@ -578,10 +578,10 @@ public class HeadInfo<E extends LivingEntity> {
 
                     return deserialized;
                 } catch (ClassNotFoundException e) {
-                    LOGGER.error("Cannot find custom head info class: " + customClass + " for class: " + forClass);
+                    LOGGER.error("Cannot find custom head info class: {} for class: {}", customClass, forClass);
                     e.printStackTrace();
                 } catch (IllegalAccessException | InstantiationException | ClassCastException e) {
-                    LOGGER.error("Error creating custom class: " + customClass + " for class: " + forClass);
+                    LOGGER.error("Error creating custom class: {} for class: {}", customClass, forClass);
                     e.printStackTrace();
                 }
             }
