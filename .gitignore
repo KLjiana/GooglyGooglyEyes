@@ -28,3 +28,4 @@ run
 *.class
 *.war
 *.ear
+/server/
