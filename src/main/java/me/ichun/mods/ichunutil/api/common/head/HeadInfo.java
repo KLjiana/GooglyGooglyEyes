@@ -6,14 +6,18 @@ import com.google.gson.annotations.SerializedName;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import cpw.mods.modlauncher.api.INameMappingService;
+import me.ichun.mods.googlyeyes.common.GooglyEyes;
 import me.ichun.mods.ichunutil.api.common.PlacementCorrector;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,9 +32,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.IntSupplier;
 
@@ -73,7 +75,9 @@ public class HeadInfo<E extends LivingEntity> {
     public String customClass = null;
 
     //Find the field name
-    public String modelFieldName = "THIS SHOULD BE FILLED UP";
+//    public String modelFieldName = "THIS SHOULD BE FILLED UP";
+    public String[] modelNames = new String[]{"THIS SHOULD BE FILLED UP"};
+    public LayerLocation modelLayerLocation = null;
 
     public Boolean isBoss = false;
     public Boolean affectedByInvisibility = true;
@@ -340,132 +344,146 @@ public class HeadInfo<E extends LivingEntity> {
 
     @OnlyIn(Dist.CLIENT)
     protected void setHeadModelFromRenderer(E living, LivingEntityRenderer renderer, EntityModel model) {
-        if (fieldIndex == null) //we haven't looked it up yet?
-        {
-            List<String> fieldNames = DOT_SPLITTER.splitToList(modelFieldName);
-            fields = new Field[fieldNames.size()];
-            fieldIndex = new ArrayList[fieldNames.size()];
-            boolean flag = false; //true if we errored.
-            for (int i = 0; i < fieldNames.size(); i++) {
-                String fieldNameFull = fieldNames.get(i);
-                String fieldName = fieldNameFull;
-                ArrayList<Integer> indices = new ArrayList<>();
-                if (fieldName.contains("[")) //it is an array, list, or get child, or worse, multiples.
-                {
-                    fieldName = fieldNameFull.substring(0, fieldNameFull.indexOf("["));
-
-                    String indicesString = fieldNameFull.substring(fieldNameFull.indexOf("["));
-                    while (indicesString.startsWith("[")) {
-                        int closeBracketIndex = indicesString.indexOf("]");
-                        //do magic
-                        try {
-                            indices.add(Integer.parseInt(indicesString.substring(1, closeBracketIndex))); //we look for -1 and higher to confirm parsing.
-                        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
-                            LOGGER.error("Error parsing modelFieldName of {} for {} of model {} in {}", modelFieldName, this.getClass().getSimpleName(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName());
-                            flag = true;
-                            indices.add(-3); //we look for -1 and higher to confirm parsing.
-                        }
-
-                        indicesString = indicesString.substring(closeBracketIndex + 1);
-                    }
-                } else {
-                    indices.add(-1);
-                }
-                Field field = findField(model.getClass(), ObfuscationReflectionHelper.remapName(INameMappingService.Domain.FIELD, fieldName));
-                if (field != null) {
-                    fields[i] = field;
-                    fieldIndex[i] = indices;
-                } else {
-                    flag = true;
-                    LOGGER.error("Error finding field of {} from {} for {} of model {} in {}", fieldName, modelFieldName, this.getClass().getSimpleName(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName());
-                }
-            }
-            if (flag) {
-                fields = null;
-            } else if (fieldIndex.length > 1) {
-                childTranslates = new ModelPart[fieldIndex.length - 1];
+        ModelPart modelPart = Minecraft.getInstance().getEntityModels().bakeLayer(modelLayerLocation.buildLocation());
+        ModelPart head = null;
+        for (String modelName : modelNames) {
+            try {
+                head = Objects.requireNonNullElse(head, modelPart).children.get(modelName);
+            } catch (NullPointerException e) {
+                GooglyEyes.LOGGER.error("The model not have the {} part of {} in {}", modelName, model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
             }
         }
-
-        if (fields != null) {
-            for (int i = 0; i < fields.length; i++) {
-                Field field = fields[i];
-                if (field == null) {
-                    break;
-                }
-
-                field.setAccessible(true);
-
-                if (i == 0 && !field.getDeclaringClass().isInstance(model)) //all our fields are from the same class. Check once only. model is instance of the class declaring our field
-                {
-                    break;
-                }
-
-                ArrayList<Integer> indices = fieldIndex[i];
-                try {
-                    Object o = field.get(model);
-
-                    Object modelAtIndex = o;
-
-                    for (Integer index : indices) {
-                        modelAtIndex = digForModelRendererWithIndex(modelAtIndex, index);
-                    }
-
-                    if (modelAtIndex instanceof ModelPart) {
-                        if (i == 0) //we're still looking for the parent heads.
-                        {
-                            this.headModel = (ModelPart) modelAtIndex;
-                        } else {
-                            this.childTranslates[i - 1] = (ModelPart) modelAtIndex;
-                        }
-                    }
-                } catch (NullPointerException | IllegalAccessException | ArrayIndexOutOfBoundsException e) {
-                    LOGGER.error("Error getting head info of {} for {} in {}", modelFieldName, this.getClass().getSimpleName(), renderer.getClass().getSimpleName());
-                    e.printStackTrace();
-                }
-            }
-        }
+        headModel = head;
     }
 
-    @Nullable
-    public static Field findField(Class clz, String fieldName) {
-        Field f = null;
-        try {
-            f = clz.getDeclaredField(fieldName);
-        } catch (NoSuchFieldException e) {
-            if (clz.getSuperclass() != EntityModel.class) {
-                f = findField(clz.getSuperclass(), fieldName);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        return f;
-    }
-
-    @Nullable
-    public static ModelPart digForModelRendererWithIndex(Object o, int index) {
-        if (o instanceof ModelPart) {
-            if (index >= 0) {
-                return ((ModelPart) o).children.values().toArray(ModelPart[]::new)[index];
-            } else {
-                return ((ModelPart) o);
-            }
-        } else if (o.getClass().isArray() && ModelPart.class.isAssignableFrom(o.getClass().getComponentType())) //A ModelRenderer array
-        {
-            if (index >= 0) {
-                return ((ModelPart[]) o)[index];
-            } else {
-                return ((ModelPart[]) o)[0];
-            }
-        } else if (o instanceof List) {
-            Object o2 = ((List<?>) o).get(index);
-            if (o2 instanceof ModelPart) {
-                return ((ModelPart) o2);
-            }
-        }
-
-        return null;
-    }
+//    @OnlyIn(Dist.CLIENT)
+//    protected void setHeadModelFromRenderer(E living, LivingEntityRenderer renderer, EntityModel model) {
+//        if (fieldIndex == null) //we haven't looked it up yet?
+//        {
+//            List<String> fieldNames = DOT_SPLITTER.splitToList(modelFieldName);
+//            fields = new Field[fieldNames.size()];
+//            fieldIndex = new ArrayList[fieldNames.size()];
+//            boolean flag = false; //true if we errored.
+//            for (int i = 0; i < fieldNames.size(); i++) {
+//                String fieldNameFull = fieldNames.get(i);
+//                String fieldName = fieldNameFull;
+//                ArrayList<Integer> indices = new ArrayList<>();
+//                if (fieldName.contains("[")) //it is an array, list, or get child, or worse, multiples.
+//                {
+//                    fieldName = fieldNameFull.substring(0, fieldNameFull.indexOf("["));
+//
+//                    String indicesString = fieldNameFull.substring(fieldNameFull.indexOf("["));
+//                    while (indicesString.startsWith("[")) {
+//                        int closeBracketIndex = indicesString.indexOf("]");
+//                        //do magic
+//                        try {
+//                            indices.add(Integer.parseInt(indicesString.substring(1, closeBracketIndex))); //we look for -1 and higher to confirm parsing.
+//                        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+//                            LOGGER.error("Error parsing modelFieldName of {} for {} of model {} in {}", modelFieldName, this.getClass().getSimpleName(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName());
+//                            flag = true;
+//                            indices.add(-3); //we look for -1 and higher to confirm parsing.
+//                        }
+//
+//                        indicesString = indicesString.substring(closeBracketIndex + 1);
+//                    }
+//                } else {
+//                    indices.add(-1);
+//                }
+//                Field field = findField(model.getClass(), ObfuscationReflectionHelper.remapName(INameMappingService.Domain.FIELD, fieldName));
+//                if (field != null) {
+//                    fields[i] = field;
+//                    fieldIndex[i] = indices;
+//                } else {
+//                    flag = true;
+//                    LOGGER.error("Error finding field of {} from {} for {} of model {} in {}", fieldName, modelFieldName, this.getClass().getSimpleName(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName());
+//                }
+//            }
+//            if (flag) {
+//                fields = null;
+//            } else if (fieldIndex.length > 1) {
+//                childTranslates = new ModelPart[fieldIndex.length - 1];
+//            }
+//        }
+//
+//        if (fields != null) {
+//            for (int i = 0; i < fields.length; i++) {
+//                Field field = fields[i];
+//                if (field == null) {
+//                    break;
+//                }
+//
+//                field.setAccessible(true);
+//
+//                if (i == 0 && !field.getDeclaringClass().isInstance(model)) //all our fields are from the same class. Check once only. model is instance of the class declaring our field
+//                {
+//                    break;
+//                }
+//
+//                ArrayList<Integer> indices = fieldIndex[i];
+//                try {
+//                    Object o = field.get(model);
+//
+//                    Object modelAtIndex = o;
+//
+//                    for (Integer index : indices) {
+//                        modelAtIndex = digForModelRendererWithIndex(modelAtIndex, index);
+//                    }
+//
+//                    if (modelAtIndex instanceof ModelPart) {
+//                        if (i == 0) //we're still looking for the parent heads.
+//                        {
+//                            this.headModel = (ModelPart) modelAtIndex;
+//                        } else {
+//                            this.childTranslates[i - 1] = (ModelPart) modelAtIndex;
+//                        }
+//                    }
+//                } catch (NullPointerException | IllegalAccessException | ArrayIndexOutOfBoundsException e) {
+//                    LOGGER.error("Error getting head info of {} for {} in {}", modelFieldName, this.getClass().getSimpleName(), renderer.getClass().getSimpleName());
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//    }
+//
+//    @Nullable
+//    public static Field findField(Class clz, String fieldName) {
+//        Field f = null;
+//        try {
+//            f = clz.getDeclaredField(fieldName);
+//        } catch (NoSuchFieldException e) {
+//            if (clz.getSuperclass() != EntityModel.class) {
+//                f = findField(clz.getSuperclass(), fieldName);
+//            }
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+//        return f;
+//    }
+//
+//    @Nullable
+//    public static ModelPart digForModelRendererWithIndex(Object o, int index) {
+//        if (o instanceof ModelPart) {
+//            if (index >= 0) {
+//                return ((ModelPart) o).children.values().toArray(ModelPart[]::new)[index];
+//            } else {
+//                return ((ModelPart) o);
+//            }
+//        } else if (o.getClass().isArray() && ModelPart.class.isAssignableFrom(o.getClass().getComponentType())) //A ModelRenderer array
+//        {
+//            if (index >= 0) {
+//                return ((ModelPart[]) o)[index];
+//            } else {
+//                return ((ModelPart[]) o)[0];
+//            }
+//        } else if (o instanceof List) {
+//            Object o2 = ((List<?>) o).get(index);
+//            if (o2 instanceof ModelPart) {
+//                return ((ModelPart) o2);
+//            }
+//        }
+//
+//        return null;
+//    }
 
     public static class Serializer implements JsonDeserializer<HeadInfo>, JsonSerializer<HeadInfo> {
         @Override
@@ -504,7 +522,8 @@ public class HeadInfo<E extends LivingEntity> {
 
             if (clone.getClass() != HeadInfo.class) {
                 clone.customClass = clone.getClass().getName();
-            } else if (clone.modelFieldName == null || clone.modelFieldName.equals(defaultInfo.modelFieldName)) {
+            } else if ((clone.modelNames == null || clone.modelNames.length == 0 || Arrays.equals(clone.modelNames, defaultInfo.modelNames)) &&
+                    (clone.modelLayerLocation == null || clone.modelLayerLocation.equals(defaultInfo.modelLayerLocation))) {
                 LOGGER.error("HeadInfo is not using a custom class but hasn't set a head model.");
             }
             clone.hasStrippedInfo = true;
@@ -600,6 +619,23 @@ public class HeadInfo<E extends LivingEntity> {
         public HeadHolder(@Nonnull HeadInfo<?> info, @Nonnull Class<? extends LivingEntity> clz) {
             this.info = info;
             this.clz = clz;
+        }
+    }
+
+    public static class LayerLocation {
+        public String model;
+        public String layer;
+
+        public LayerLocation() {
+        }
+
+        public LayerLocation(String model, String layer) {
+            this.model = model;
+            this.layer = layer;
+        }
+
+        public ModelLayerLocation buildLocation() {
+            return new ModelLayerLocation(new ResourceLocation(model), layer);
         }
     }
 }

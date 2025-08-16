@@ -30,6 +30,7 @@ public class ModConfigClient {
 
     public static HashMap<ResourceLocation, Integer> entityOverrideChanceParsed = new HashMap<>();
 
+    //TODO configevent
 //    private void onConfigLoad(ModConfigEvent.Loading event) {
 //        if (sameConfig(event)) {
 //            checkForChanges();
@@ -55,9 +56,11 @@ public class ModConfigClient {
     public static void parseOverrideChance() {
         entityOverrideChanceParsed.clear();
 
-        for (String s : entityOverrideChance.get()) {
-            String[] split = s.split(",");
-            entityOverrideChanceParsed.put(new ResourceLocation(split[0]), Integer.parseInt(split[1]));
+        if (SPEC.isLoaded()) {
+            for (String s : entityOverrideChance.get()) {
+                String[] split = s.split(",");
+                entityOverrideChanceParsed.put(new ResourceLocation(split[0]), Integer.parseInt(split[1]));
+            }
         }
     }
 }

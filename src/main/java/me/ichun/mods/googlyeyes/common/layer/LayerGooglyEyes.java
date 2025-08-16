@@ -95,7 +95,8 @@ public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> e
                     stack.mulPose(Axis.YP.rotationDegrees(helper.getHeadYaw(living, stack, partialTicks, headIndex, eyeIndex)));
                     stack.mulPose(Axis.XP.rotationDegrees(helper.getHeadPitch(living, stack, partialTicks, headIndex, eyeIndex)));
 
-                    helper.postHeadTranslation(living, stack, partialTicks);
+                    //真的有用吗
+//                    helper.postHeadTranslation(living, stack, partialTicks);
 
                     float[] eyes = helper.getEyeOffsetFromJoint(living, stack, partialTicks, eyeIndex);
                     stack.translate(-(eyes[0] + helper.getEyeSideOffset(living, stack, partialTicks, eyeIndex)), -eyes[1], -eyes[2]);
