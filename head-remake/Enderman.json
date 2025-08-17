@@ -1,0 +1,30 @@
+{
+  "forClass": "net.minecraft.world.entity.monster.Enderman",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78116_c"
+  ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadEnderman",
+  "eyeOffset": [
+    0.0,
+    0.21875,
+    0.25
+  ],
+  "irisColour": [
+    0.88,
+    0.47,
+    0.98
+  ],
+  "pupilColour": [
+    0.8,
+    0.0,
+    0.98
+  ],
+  "halfInterpupillaryDistance": 0.15625,
+  "eyeScale": 0.85,
+  "affectedByInvisibility": false,
+  "doesEyeGlow": true
+}

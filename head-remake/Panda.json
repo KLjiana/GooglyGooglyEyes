@@ -1,0 +1,23 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.Panda",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78150_a"
+  ],
+  "eyeOffset": [
+    0.0,
+    0.03125,
+    0.25
+  ],
+  "halfInterpupillaryDistance": 0.21875,
+  "eyeScale": 0.65,
+  "headTopCenter": [
+    0.0,
+    0.3125,
+    -0.03125
+  ],
+  "headScale": 1.625
+}

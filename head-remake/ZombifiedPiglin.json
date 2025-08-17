@@ -1,0 +1,12 @@
+{
+  "forClass": "net.minecraft.world.entity.monster.ZombifiedPiglin",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78116_c"
+  ],
+  "halfInterpupillaryDistance": 0.1875,
+  "headScale": 1.25
+}

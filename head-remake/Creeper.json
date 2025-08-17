@@ -1,0 +1,15 @@
+{
+  "forClass": "net.minecraft.world.entity.monster.Creeper",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78135_a"
+  ],
+  "eyeOffset": [
+    0.0,
+    0.3125,
+    0.25
+  ]
+}

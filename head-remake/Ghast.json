@@ -1,0 +1,19 @@
+{
+  "forClass": "net.minecraft.world.entity.monster.Ghast",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_228260_b_[0]"
+  ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadGhast",
+  "eyeOffset": [
+    0.0,
+    0.125,
+    0.5
+  ],
+  "halfInterpupillaryDistance": 0.21875,
+  "eyeScale": 1.5,
+  "headScale": 2.0
+}

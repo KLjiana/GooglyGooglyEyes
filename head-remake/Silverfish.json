@@ -1,0 +1,23 @@
+{
+  "forClass": "net.minecraft.world.entity.monster.Silverfish",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78171_a[0]"
+  ],
+  "eyeOffset": [
+    0.0,
+    0.0,
+    0.0625
+  ],
+  "halfInterpupillaryDistance": 0.0625,
+  "eyeScale": 0.5,
+  "headTopCenter": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "headScale": 0.375
+}

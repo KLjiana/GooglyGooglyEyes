@@ -1,0 +1,25 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.Parrot",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_192768_e"
+  ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadParrot",
+  "eyeOffset": [
+    0.0,
+    0.059375,
+    0.03125
+  ],
+  "halfInterpupillaryDistance": 0.0625,
+  "eyeScale": 0.375,
+  "sideEyed": true,
+  "headTopCenter": [
+    0.0,
+    0.15625,
+    0.0625
+  ],
+  "headScale": 0.5
+}

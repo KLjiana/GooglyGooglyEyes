@@ -1,20 +1,20 @@
 {
-  "forClass": "net.minecraft.world.entity.monster.Slime",
+  "forClass": "net.minecraft.world.entity.animal.IronGolem",
   "modelLayerLocation": {
     "model": "",
     "layer": ""
   },
   "modelNames": [
-    "field_78200_a"
+    "field_78178_a"
   ],
   "eyeOffset": [
     0.0,
-    -1.1875,
-    0.25
+    0.375,
+    0.34375
   ],
   "headTopCenter": [
     0.0,
-    -1.0,
-    0.0
+    0.75,
+    0.09375
   ]
 }

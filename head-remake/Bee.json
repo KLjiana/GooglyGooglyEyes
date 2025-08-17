@@ -1,0 +1,44 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.Bee",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_228231_a_"
+  ],
+  "irisColourAngry": [
+    0.89411765,
+    0.0,
+    0.09411765
+  ],
+  "pupilColourAngry": [
+    0.94509804,
+    0.9490196,
+    0.8784314
+  ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadBee",
+  "eyeOffset": [
+    0.0,
+    -0.03125,
+    0.3125
+  ],
+  "irisColour": [
+    0.1882353,
+    0.16862746,
+    0.21568628
+  ],
+  "pupilColour": [
+    0.4862745,
+    0.7882353,
+    0.81960785
+  ],
+  "halfInterpupillaryDistance": 0.15625,
+  "eyeScale": 1.0,
+  "headTopCenter": [
+    0.0,
+    0.25,
+    0.0
+  ],
+  "headScale": 1.25
+}

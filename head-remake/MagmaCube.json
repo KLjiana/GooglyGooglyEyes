@@ -1,12 +1,13 @@
 {
-  "forClass": "net.minecraft.world.entity.monster.Slime",
+  "forClass": "net.minecraft.world.entity.monster.MagmaCube",
   "modelLayerLocation": {
     "model": "",
     "layer": ""
   },
   "modelNames": [
-    "field_78200_a"
+    "field_78108_b"
   ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadMagmaCube",
   "eyeOffset": [
     0.0,
     -1.1875,

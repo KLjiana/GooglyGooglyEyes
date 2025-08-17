@@ -1,20 +1,22 @@
 {
-  "forClass": "net.minecraft.world.entity.monster.Slime",
+  "forClass": "net.minecraft.world.entity.monster.AbstractIllager",
   "modelLayerLocation": {
     "model": "",
     "layer": ""
   },
   "modelNames": [
-    "field_78200_a"
+    "field_191217_a"
   ],
   "eyeOffset": [
     0.0,
-    -1.1875,
+    0.2,
     0.25
   ],
+  "halfInterpupillaryDistance": 0.11875,
+  "eyeScale": 0.7,
   "headTopCenter": [
     0.0,
-    -1.0,
+    0.625,
     0.0
   ]
 }

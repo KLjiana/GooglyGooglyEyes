@@ -1,0 +1,24 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.Rabbit",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_178704_h"
+  ],
+  "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadRabbit",
+  "eyeOffset": [
+    0.0,
+    0.1875,
+    0.3125
+  ],
+  "halfInterpupillaryDistance": 0.0625,
+  "eyeScale": 0.6,
+  "headTopCenter": [
+    0.0,
+    0.25,
+    0.15625
+  ],
+  "headScale": 0.625
+}

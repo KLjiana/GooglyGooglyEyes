@@ -1,0 +1,24 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.Turtle",
+  "modelLayerLocation": {
+    "model": "",
+    "layer": ""
+  },
+  "modelNames": [
+    "field_78150_a"
+  ],
+  "eyeOffset": [
+    0.0,
+    -0.09375,
+    0.0625
+  ],
+  "halfInterpupillaryDistance": 0.1875,
+  "eyeScale": 0.65,
+  "sideEyed": true,
+  "headTopCenter": [
+    0.0,
+    0.0625,
+    0.0
+  ],
+  "headScale": 0.75
+}
