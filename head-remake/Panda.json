@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Panda",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

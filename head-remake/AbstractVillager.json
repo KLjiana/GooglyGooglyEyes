@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.npc.AbstractVillager",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

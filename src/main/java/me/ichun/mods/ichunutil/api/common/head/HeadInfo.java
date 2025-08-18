@@ -5,7 +5,6 @@ import com.google.gson.*;
 import com.google.gson.annotations.SerializedName;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import cpw.mods.modlauncher.api.INameMappingService;
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
 import me.ichun.mods.ichunutil.api.common.PlacementCorrector;
 import net.minecraft.client.Minecraft;
@@ -22,12 +21,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -344,16 +341,18 @@ public class HeadInfo<E extends LivingEntity> {
 
     @OnlyIn(Dist.CLIENT)
     protected void setHeadModelFromRenderer(E living, LivingEntityRenderer renderer, EntityModel model) {
-        ModelPart modelPart = Minecraft.getInstance().getEntityModels().bakeLayer(modelLayerLocation.buildLocation());
-        ModelPart head = null;
-        for (String modelName : modelNames) {
-            try {
+        try {
+            ModelPart modelPart = Minecraft.getInstance().getEntityModels().bakeLayer(modelLayerLocation.buildLocation());
+            ModelPart head = null;
+            for (String modelName : modelNames) {
                 head = Objects.requireNonNullElse(head, modelPart).children.get(modelName);
-            } catch (NullPointerException e) {
-                GooglyEyes.LOGGER.error("The model not have the {} part of {} in {}", modelName, model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
             }
+            headModel = head;
+        } catch (NullPointerException e) {
+            GooglyEyes.LOGGER.error("The model not have the {} part of {} in {}", modelNames, model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
+        } catch (IllegalArgumentException e) {
+            GooglyEyes.LOGGER.error("No model for layer {} of {} in {}", modelLayerLocation.toString(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
         }
-        headModel = head;
     }
 
 //    @OnlyIn(Dist.CLIENT)
@@ -623,19 +622,24 @@ public class HeadInfo<E extends LivingEntity> {
     }
 
     public static class LayerLocation {
-        public String model;
+        public String id;
         public String layer;
 
         public LayerLocation() {
         }
 
-        public LayerLocation(String model, String layer) {
-            this.model = model;
+        public LayerLocation(String id, String layer) {
+            this.id = id;
             this.layer = layer;
         }
 
         public ModelLayerLocation buildLocation() {
-            return new ModelLayerLocation(new ResourceLocation(model), layer);
+            return new ModelLayerLocation(new ResourceLocation(id), layer);
+        }
+
+        @Override
+        public String toString() {
+            return "LayerLocation{model=%s, layer=%s}".formatted(id, layer);
         }
     }
 }

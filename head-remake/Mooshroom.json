@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.MushroomCow",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

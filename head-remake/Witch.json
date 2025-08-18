@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Witch",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.PolarBear",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

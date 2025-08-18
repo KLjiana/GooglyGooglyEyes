@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Illusioner",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

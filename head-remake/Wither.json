@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.boss.wither.WitherBoss",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

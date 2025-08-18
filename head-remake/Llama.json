@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.horse.Llama",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [
@@ -11,7 +11,7 @@
     {
       "forClass": "horseEasterEgg_true",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [
@@ -45,7 +45,7 @@
     {
       "forClass": "horseEasterEgg_false",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [

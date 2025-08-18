@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Fox",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

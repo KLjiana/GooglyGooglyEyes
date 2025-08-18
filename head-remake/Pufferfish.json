@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Pufferfish",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [
@@ -11,7 +11,7 @@
     {
       "forClass": "net.minecraft.client.renderer.entity.model.PufferFishBigModel",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [
@@ -32,7 +32,7 @@
     {
       "forClass": "net.minecraft.client.renderer.entity.model.PufferFishMediumModel",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [
@@ -60,7 +60,7 @@
     {
       "forClass": "net.minecraft.client.renderer.entity.model.PufferFishSmallModel",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [

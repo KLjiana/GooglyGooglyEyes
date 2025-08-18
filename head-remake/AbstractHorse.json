@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.horse.AbstractHorse",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [
@@ -11,11 +11,11 @@
     {
       "forClass": "horseEasterEgg_true",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [
-        "field_217127_a"
+        "body"
       ],
       "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadBodyHorse",
       "childEntityScale": [
@@ -51,11 +51,11 @@
     {
       "forClass": "horseEasterEgg_false",
       "modelLayerLocation": {
-        "model": "",
+        "id": "",
         "layer": ""
       },
       "modelNames": [
-        "field_217128_b"
+        "head_parts"
       ],
       "eyeOffset": [
         0.0,

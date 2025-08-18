@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Silverfish",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [

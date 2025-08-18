@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.piglin.AbstractPiglin",
   "modelLayerLocation": {
-    "model": "",
+    "id": "",
     "layer": ""
   },
   "modelNames": [
