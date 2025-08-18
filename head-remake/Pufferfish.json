@@ -5,7 +5,7 @@
   ],
   "multiModel": [
     {
-      "forClass": "net.minecraft.client.renderer.entity.model.PufferFishBigModel",
+      "forClass": "net.minecraft.client.model.PufferfishBigModel",
       "modelNames": [
         "cube"
       ],
@@ -22,7 +22,7 @@
       "eyeScale": 1.25
     },
     {
-      "forClass": "net.minecraft.client.renderer.entity.model.PufferFishMediumModel",
+      "forClass": "net.minecraft.client.model.PufferfishMidModel",
       "modelNames": [
         "cube"
       ],
@@ -46,7 +46,7 @@
       "headScale": 0.625
     },
     {
-      "forClass": "net.minecraft.client.renderer.entity.model.PufferFishSmallModel",
+      "forClass": "net.minecraft.client.model.PufferfishSmallModel",
       "modelNames": [
         "cube"
       ],

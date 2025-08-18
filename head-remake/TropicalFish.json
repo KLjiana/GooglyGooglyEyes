@@ -5,7 +5,7 @@
   ],
   "multiModel": [
     {
-      "forClass": "net.minecraft.client.renderer.entity.model.TropicalFishAModel",
+      "forClass": "net.minecraft.client.model.TropicalFishModelA",
       "modelNames": [
         "body"
       ],
@@ -25,7 +25,7 @@
       "headScale": 0.25
     },
     {
-      "forClass": "net.minecraft.client.renderer.entity.model.TropicalFishBModel",
+      "forClass": "net.minecraft.client.model.TropicalFishModelB",
       "modelNames": [
         "body"
       ],
