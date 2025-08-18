@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Pig",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78150_a"
+    "head"
   ],
   "eyeOffset": [
     0.0,

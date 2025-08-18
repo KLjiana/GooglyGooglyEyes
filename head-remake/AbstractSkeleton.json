@@ -1,10 +1,6 @@
 {
   "forClass": "net.minecraft.world.entity.monster.AbstractSkeleton",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78116_c"
+    "head"
   ]
 }

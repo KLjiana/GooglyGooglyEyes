@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Cod",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_203725_c"
+    "head"
   ],
   "eyeOffset": [
     0.0,

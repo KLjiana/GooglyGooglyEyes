@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Blaze",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78105_b"
+    "head"
   ],
   "eyeOffset": [
     0.0,

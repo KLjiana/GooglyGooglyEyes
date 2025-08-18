@@ -5,17 +5,20 @@ import me.ichun.mods.googlyeyes.common.layer.LayerGooglyEyes;
 import me.ichun.mods.googlyeyes.common.tracker.GooglyTracker;
 import me.ichun.mods.ichunutil.api.client.ILayerManager;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
+import me.ichun.mods.ichunutil.common.head.HeadHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterClientCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -59,6 +62,14 @@ public class EventHandler {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void reloadCommand(RegisterClientCommandsEvent event) {
+        event.getDispatcher().register(Commands.literal("googlyeyes").then(Commands.literal("reload").executes(commandContext -> {
+            HeadHandler.loadHeadInfos();
+            return 0;
+        })));
     }
 
     public GooglyTracker getGooglyTracker(LivingEntity living, HeadInfo<?> helper) {

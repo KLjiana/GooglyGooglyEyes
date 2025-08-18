@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Cat",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78156_g"
+    "head"
   ],
   "pupilColourAssortment": [
     [

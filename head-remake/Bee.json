@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Bee",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_228231_a_"
+    "bone"
   ],
   "irisColourAngry": [
     0.89411765,

@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.piglin.AbstractPiglin",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78116_c"
+    "head"
   ],
   "halfInterpupillaryDistance": 0.1875,
   "headScale": 1.25

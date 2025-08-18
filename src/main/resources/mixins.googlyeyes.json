@@ -6,7 +6,11 @@
   "mixins": [
   ],
   "client": [
-    "EnderDragonRendererMixin"
+    "EnderDragonRendererMixin",
+    "model.HierarchicalModelMixin",
+    "model.HumanoidModelMixin",
+    "model.ModelMixin",
+    "model.QuadrupedModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

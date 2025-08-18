@@ -6,12 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
+import me.ichun.mods.ichunutil.api.client.IEntityModelGetter;
 import me.ichun.mods.ichunutil.api.common.PlacementCorrector;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.AgeableListModel;
-import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.Model;
+import net.minecraft.client.model.*;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -342,17 +341,35 @@ public class HeadInfo<E extends LivingEntity> {
     @OnlyIn(Dist.CLIENT)
     protected void setHeadModelFromRenderer(E living, LivingEntityRenderer renderer, EntityModel model) {
         try {
-            ModelPart modelPart = Minecraft.getInstance().getEntityModels().bakeLayer(modelLayerLocation.buildLocation());
+            ModelPart rootModel = getRootModel(model);
+            if (rootModel == null) return;
+
             ModelPart head = null;
             for (String modelName : modelNames) {
-                head = Objects.requireNonNullElse(head, modelPart).children.get(modelName);
+                head = Objects.requireNonNullElse(head, rootModel).children.get(modelName);
             }
             headModel = head;
         } catch (NullPointerException e) {
             GooglyEyes.LOGGER.error("The model not have the {} part of {} in {}", modelNames, model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
-        } catch (IllegalArgumentException e) {
-            GooglyEyes.LOGGER.error("No model for layer {} of {} in {}", modelLayerLocation.toString(), model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
         }
+    }
+
+    // The f********king mojang!!!
+    @OnlyIn(Dist.CLIENT)
+    protected ModelPart getRootModel(EntityModel model) {
+        if (model instanceof IEntityModelGetter getter) {
+            return getter.getRoot();
+        } else {
+            try {
+                if (modelLayerLocation != null) {
+                    EntityModelSet entityModels = Minecraft.getInstance().getEntityModels();
+                    return entityModels.bakeLayer(modelLayerLocation.buildLocation());
+                }
+            } catch (IllegalArgumentException e) {
+                GooglyEyes.LOGGER.error("No model for layer {} of {}", modelLayerLocation.toString(), model.getClass().getSimpleName(), e);
+            }
+        }
+        return null;
     }
 
 //    @OnlyIn(Dist.CLIENT)
@@ -521,8 +538,7 @@ public class HeadInfo<E extends LivingEntity> {
 
             if (clone.getClass() != HeadInfo.class) {
                 clone.customClass = clone.getClass().getName();
-            } else if ((clone.modelNames == null || clone.modelNames.length == 0 || Arrays.equals(clone.modelNames, defaultInfo.modelNames)) &&
-                    (clone.modelLayerLocation == null || clone.modelLayerLocation.equals(defaultInfo.modelLayerLocation))) {
+            } else if (clone.modelNames == null || clone.modelNames.length == 0 || Arrays.equals(clone.modelNames, defaultInfo.modelNames)) {
                 LOGGER.error("HeadInfo is not using a custom class but hasn't set a head model.");
             }
             clone.hasStrippedInfo = true;

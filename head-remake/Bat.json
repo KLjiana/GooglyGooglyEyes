@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.ambient.Bat",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_82895_a"
+    "head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadBat",
   "eyeOffset": [

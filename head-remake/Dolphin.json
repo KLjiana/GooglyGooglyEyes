@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Dolphin",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_205082_b"
+    "body"
   ],
   "eyeOffset": [
     0.0,

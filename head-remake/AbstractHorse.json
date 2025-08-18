@@ -1,9 +1,5 @@
 {
   "forClass": "net.minecraft.world.entity.animal.horse.AbstractHorse",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
     ""
   ],
