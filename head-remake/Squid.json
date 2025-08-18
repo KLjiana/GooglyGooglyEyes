@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Squid",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78202_a"
+    "body"
   ],
   "eyeOffset": [
     0.0,

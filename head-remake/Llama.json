@@ -1,9 +1,5 @@
 {
   "forClass": "net.minecraft.world.entity.animal.horse.Llama",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
     ""
   ],
@@ -15,7 +11,7 @@
         "layer": ""
       },
       "modelNames": [
-        "field_228274_b_"
+        "body"
       ],
       "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadLlama",
       "childEntityScale": [
@@ -30,7 +26,7 @@
       ],
       "eyeOffset": [
         0.0,
-        0.125,
+        0.07,
         0.5
       ],
       "halfInterpupillaryDistance": 0.1875,
@@ -49,7 +45,7 @@
         "layer": ""
       },
       "modelNames": [
-        "field_228273_a_"
+        "head"
       ],
       "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadLlama",
       "childEntityScale": [

@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Endermite",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_178713_d[0]"
+    "segment0"
   ],
   "eyeOffset": [
     0.0,

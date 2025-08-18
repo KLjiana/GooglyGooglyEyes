@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.SnowGolem",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78195_c"
+    "head"
   ],
   "eyeOffsetNoPumpkinLeft": [
     0.0,

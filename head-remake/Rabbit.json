@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Rabbit",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_178704_h"
+    "head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadRabbit",
   "eyeOffset": [

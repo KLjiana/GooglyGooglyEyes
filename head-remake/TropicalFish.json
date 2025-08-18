@@ -1,21 +1,13 @@
 {
   "forClass": "net.minecraft.world.entity.animal.TropicalFish",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
     ""
   ],
   "multiModel": [
     {
       "forClass": "net.minecraft.client.renderer.entity.model.TropicalFishAModel",
-      "modelLayerLocation": {
-        "id": "",
-        "layer": ""
-      },
       "modelNames": [
-        "field_204235_a"
+        "body"
       ],
       "eyeOffset": [
         0.0,
@@ -34,12 +26,8 @@
     },
     {
       "forClass": "net.minecraft.client.renderer.entity.model.TropicalFishBModel",
-      "modelLayerLocation": {
-        "id": "",
-        "layer": ""
-      },
       "modelNames": [
-        "field_204240_a"
+        "body"
       ],
       "eyeOffset": [
         0.0,

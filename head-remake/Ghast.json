@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Ghast",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_228260_b_[0]"
+    "tentacle0"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadGhast",
   "eyeOffset": [

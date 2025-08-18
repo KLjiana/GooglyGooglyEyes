@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Enderman",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78116_c"
+    "head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadEnderman",
   "eyeOffset": [

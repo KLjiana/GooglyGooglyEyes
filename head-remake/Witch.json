@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Witch",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78191_a"
+    "head"
   ],
   "eyeOffset": [
     0.0,

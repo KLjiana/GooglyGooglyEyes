@@ -1,11 +1,8 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Ravager",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_217175_k.field_217168_a"
+    "neck",
+    "head"
   ],
   "eyeOffset": [
     0.0,

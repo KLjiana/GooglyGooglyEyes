@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.boss.wither.WitherBoss",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_82904_b[0]"
+    "center_head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadWither",
   "isBoss": true,
@@ -23,7 +19,7 @@
   "additionalHeads": [
     {
       "modelNames": [
-        "field_82904_b[1]"
+        "right_head"
       ],
       "eyeOffset": [
         0.0625,
@@ -39,7 +35,7 @@
     },
     {
       "modelNames": [
-        "field_82904_b[2]"
+        "left_head"
       ],
       "eyeOffset": [
         0.0625,

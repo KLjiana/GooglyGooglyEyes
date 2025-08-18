@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Drowned",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78116_c"
+    "head"
   ],
   "headTopCenter": [
     0.0,

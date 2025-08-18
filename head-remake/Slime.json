@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Slime",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78200_a"
+    "cube"
   ],
   "eyeOffset": [
     0.0,

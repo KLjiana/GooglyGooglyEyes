@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Wolf",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78185_a"
+    "head"
   ],
   "eyeOffsetTame": [
     -0.0625,

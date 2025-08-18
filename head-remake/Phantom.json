@@ -1,11 +1,8 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Phantom",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_203070_a.field_203070_a[1]"
+    "body",
+    "head"
   ],
   "eyeOffset": [
     0.03125,

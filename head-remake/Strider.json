@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Strider",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_239120_f_"
+    "body"
   ],
   "eyeOffset": [
     0.0,

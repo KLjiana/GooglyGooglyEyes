@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Salmon",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_203763_c"
+    "head"
   ],
   "eyeOffset": [
     0.0,

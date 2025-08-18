@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Shulker",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_187066_a"
+    "head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadShulker",
   "eyeOffset": [

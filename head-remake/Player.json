@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.player.Player",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78116_c"
+    "head"
   ],
   "isBoss": false,
   "noFaceInfo": false,

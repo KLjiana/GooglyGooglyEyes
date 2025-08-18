@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Spider",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78209_a"
+    "head"
   ],
   "halfInterpupillaryDistance2": 0.125,
   "halfInterpupillaryDistance3": 0.25,

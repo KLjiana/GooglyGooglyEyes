@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.animal.Sheep",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78150_a"
+    "head"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadSheep",
   "eyeOffset": [

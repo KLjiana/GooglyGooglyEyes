@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.boss.enderdragon.EnderDragon",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78221_a"
+    "head"
   ],
   "isBoss": true,
   "eyeOffset": [

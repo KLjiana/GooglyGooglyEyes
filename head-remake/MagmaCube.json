@@ -1,11 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.MagmaCube",
-  "modelLayerLocation": {
-    "id": "",
-    "layer": ""
-  },
   "modelNames": [
-    "field_78108_b"
+    "inside_cube"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadMagmaCube",
   "eyeOffset": [
