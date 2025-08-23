@@ -1,0 +1,15 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.frog.Tadpole",
+  "modelNames": [
+    "body"
+  ],
+  "eyeOffset": [
+    0.0,
+    0.057,
+    0.0037
+  ],
+  "halfInterpupillaryDistance": 0.06375,
+  "eyeScale": 0.45,
+  "eyeXRotation": -10,
+  "eyeYRotation": 25
+}

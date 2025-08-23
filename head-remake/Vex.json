@@ -2,5 +2,10 @@
   "forClass": "net.minecraft.world.entity.monster.Vex",
   "modelNames": [
     "head"
+  ],
+  "eyeOffset": [
+    0.0,
+    0.25,
+    0.18
   ]
 }

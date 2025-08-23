@@ -1,0 +1,13 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.goat.Goat",
+  "modelNames": [
+    "head"
+  ],
+  "eyeOffset": [
+    0.03125,
+    0.435,
+    0.625
+  ],
+  "halfInterpupillaryDistance": 0.15625,
+  "sideEyed": true
+}

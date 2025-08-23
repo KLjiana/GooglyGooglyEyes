@@ -1,0 +1,16 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.sniffer.Sniffer",
+  "modelNames": [
+    "bone",
+    "body",
+    "head"
+  ],
+  "eyeYRotation": 90,
+  "eyeOffset": [
+    0.0,
+    -0.195,
+    0.54
+  ],
+  "halfInterpupillaryDistance": 0.42,
+  "eyeScale": 0.7
+}

@@ -1,0 +1,12 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.frog.Frog",
+  "modelNames": [
+    "root",
+    "body"
+  ],
+  "eyeOffset": [
+    0.0,
+    -1.15,
+    0.45
+  ]
+}

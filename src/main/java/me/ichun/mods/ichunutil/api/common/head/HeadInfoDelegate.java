@@ -3,6 +3,7 @@ package me.ichun.mods.ichunutil.api.common.head;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.entity.LivingEntity;
@@ -206,9 +207,9 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void preChildEntHeadRenderCalls(E living, PoseStack stack, LivingEntityRenderer<E, ?> render)
+    public void preChildEntHeadRenderCalls(E living, PoseStack stack, EntityRenderer<E> render, EntityModel model)
     {
-        delegate.preChildEntHeadRenderCalls(living, stack, render);
+        delegate.preChildEntHeadRenderCalls(living, stack, render, model);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -220,11 +221,10 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public boolean setup(E living, LivingEntityRenderer renderer)
+    public boolean setup(E living, EntityRenderer<E> renderer, EntityModel model)
     {
         delegate = null;
 
-        EntityModel model = renderer.getModel();
         for(HeadInfo head : multiModel)
         {
             if(head.forClass.startsWith("horseEasterEgg"))
@@ -255,11 +255,11 @@ public class HeadInfoDelegate<E extends LivingEntity> extends HeadInfo<E>
     @SuppressWarnings("rawtypes")
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void setHeadModel(E living, LivingEntityRenderer renderer)
+    public void setHeadModel(E living, EntityRenderer<E> renderer, EntityModel model)
     {
         if(delegate.headModel == null || aggressiveHeadTracking.getAsInt() == 1 || aggressiveHeadTracking.getAsInt() == 2 && renderer instanceof PlayerRenderer)
         {
-            delegate.setHeadModelFromRenderer(living, renderer, renderer.getModel());
+            delegate.setHeadModelFromRenderer(living, renderer, model);
         }
     }
 

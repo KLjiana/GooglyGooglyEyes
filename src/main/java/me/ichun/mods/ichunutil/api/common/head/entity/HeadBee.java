@@ -3,7 +3,9 @@ package me.ichun.mods.ichunutil.api.common.head.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.model.AgeableListModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.Model;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,12 +18,11 @@ public class HeadBee extends HeadInfo<Bee>
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void preChildEntHeadRenderCalls(Bee living, PoseStack stack, LivingEntityRenderer<Bee, ?> render)
+    public void preChildEntHeadRenderCalls(Bee living, PoseStack stack, EntityRenderer<Bee> render, EntityModel model)
     {
         if(living.isBaby()) //I don't like this if statement any more than you do.
         {
             float modelScale = 0.0625F;
-            Model model = render.getModel();
             if(model instanceof AgeableListModel<?>)
             {
                 AgeableListModel<?> ageableModel = (AgeableListModel<?>)model;

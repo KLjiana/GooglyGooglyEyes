@@ -6,6 +6,7 @@ import com.mojang.math.Axis;
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
 import me.ichun.mods.googlyeyes.common.model.ModelGooglyEye;
 import me.ichun.mods.googlyeyes.common.tracker.GooglyTracker;
+import me.ichun.mods.ichunutil.api.client.ILayerManager;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import me.ichun.mods.ichunutil.common.head.HeadHandler;
 import net.minecraft.client.Minecraft;
@@ -37,11 +38,15 @@ public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> e
         HeadInfo parentHelper = HeadHandler.getHelper(living.getClass());
         if (parentHelper != null) {
             EntityRenderer<?> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(living);
-            if (!(render instanceof LivingEntityRenderer renderer)) {
+
+            EntityModel<?> model;
+            if (render instanceof RenderLayerParent<?,?> layerParent) {
+                model = layerParent.getModel();
+            } else {
                 return;
             }
 
-            if (!parentHelper.setup(living, renderer)) {
+            if (!parentHelper.setup(living, render, model)) {
                 return;
             }
 
@@ -61,7 +66,7 @@ public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> e
                     continue;
                 }
 
-                helper.setHeadModel(living, renderer);
+                helper.setHeadModel(living, render, model);
                 if (helper.headModel == null) {
                     continue;
                 }
@@ -86,7 +91,7 @@ public class LayerGooglyEyes<T extends LivingEntity, M extends EntityModel<T>> e
                     stack.pushPose();
 
                     // thepatcat: Creatures only get googly eyes in adulthood. It's science.
-                    helper.preChildEntHeadRenderCalls(living, stack, renderer);
+                    helper.preChildEntHeadRenderCalls(living, stack, render, model);
 
                     float[] joint = helper.getHeadJointOffset(living, stack, partialTicks, headIndex);
                     stack.translate(-joint[0], -joint[1], -joint[2]);

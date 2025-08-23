@@ -2,6 +2,8 @@ package me.ichun.mods.ichunutil.api.common.head.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraftforge.api.distmarker.Dist;
@@ -11,7 +13,7 @@ public class HeadRabbit extends HeadInfo<Rabbit>
 {
     @OnlyIn(Dist.CLIENT)
     @Override
-    public void preChildEntHeadRenderCalls(Rabbit living, PoseStack stack, LivingEntityRenderer<Rabbit, ?> render)
+    public void preChildEntHeadRenderCalls(Rabbit living, PoseStack stack, EntityRenderer<Rabbit> render, EntityModel model)
     {
         float scale = 0.0625F;
         if(living.isBaby())

@@ -1,19 +1,25 @@
 package me.ichun.mods.googlyeyes.common.core;
 
 import me.ichun.mods.googlyeyes.common.GooglyEyes;
+import me.ichun.mods.googlyeyes.common.layer.EnderDragonLayer;
 import me.ichun.mods.googlyeyes.common.layer.LayerGooglyEyes;
 import me.ichun.mods.googlyeyes.common.tracker.GooglyTracker;
 import me.ichun.mods.ichunutil.api.client.ILayerManager;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import me.ichun.mods.ichunutil.common.head.HeadHandler;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.renderer.entity.EnderDragonRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.commands.Commands;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -83,7 +89,8 @@ public class EventHandler {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void addLayers(EntityRenderersEvent.AddLayers event) {
-        LayerGooglyEyes layerGooglyEyes = new LayerGooglyEyes(event.getSkin("default"));
+        var skin = event.getSkin("default");
+        LayerGooglyEyes layerGooglyEyes = new LayerGooglyEyes(skin);
         Set<EntityRenderer> addedRenderers = new HashSet<>();
 
         EntityRenderDispatcher renderManager = event.getContext().getEntityRenderDispatcher();
@@ -110,6 +117,11 @@ public class EventHandler {
 
             if (entityRenderer instanceof LivingEntityRenderer renderer) {
                 renderer.addLayer(layerGooglyEyes);
+            } else if (entityRenderer instanceof EnderDragonRenderer enderDragon) {
+                EnderDragonRenderer.DragonModel dragonModel = new EnderDragonRenderer.DragonModel(event.getEntityModels().bakeLayer(ModelLayers.ENDER_DRAGON));
+                EnderDragonLayer dragonLayer = new EnderDragonLayer(skin, dragonModel);
+
+                ((ILayerManager) enderDragon).addLayer(dragonLayer);
             } else if (entityRenderer instanceof ILayerManager iLayerManager) {
                 iLayerManager.addLayer(layerGooglyEyes);
             }

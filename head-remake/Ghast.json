@@ -1,7 +1,7 @@
 {
   "forClass": "net.minecraft.world.entity.monster.Ghast",
   "modelNames": [
-    "tentacle0"
+    "body"
   ],
   "customClass": "me.ichun.mods.ichunutil.api.common.head.entity.HeadGhast",
   "eyeOffset": [

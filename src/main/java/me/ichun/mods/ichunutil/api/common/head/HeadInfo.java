@@ -13,6 +13,7 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -282,7 +283,7 @@ public class HeadInfo<E extends LivingEntity> {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void preChildEntHeadRenderCalls(E living, PoseStack stack, LivingEntityRenderer<E, ?> render) {
+    public void preChildEntHeadRenderCalls(E living, PoseStack stack, EntityRenderer<E> render, EntityModel model) {
         if (living.isBaby()) //I don't like this if statement any more than you do.
         {
             if (childEntityScale != null || childEntityOffset != null) //there is a child override
@@ -296,7 +297,6 @@ public class HeadInfo<E extends LivingEntity> {
             } else //default to MC scaling
             {
                 float modelScale = 0.0625F;
-                Model model = render.getModel();
                 if (model instanceof HumanoidModel<?>) {
                     stack.scale(0.75F, 0.75F, 0.75F);
                     stack.translate(0.0F, 16.0F * modelScale, 0.0F);
@@ -322,7 +322,7 @@ public class HeadInfo<E extends LivingEntity> {
 
     //Setup functions are to set up the HeadInfoDelegate
     @OnlyIn(Dist.CLIENT)
-    public boolean setup(E living, LivingEntityRenderer renderer) {
+    public boolean setup(E living, EntityRenderer<E> renderer, EntityModel model) {
         return true;
     }
 
@@ -331,15 +331,15 @@ public class HeadInfo<E extends LivingEntity> {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void setHeadModel(E living, LivingEntityRenderer renderer) //actually gets the most parent ModelRenderer. we translate to the head in the functions if necessary.
+    public void setHeadModel(E living, EntityRenderer<E> renderer, EntityModel model) //actually gets the most parent ModelRenderer. we translate to the head in the functions if necessary.
     {
         if (this.headModel == null || aggressiveHeadTracking.getAsInt() == 1 || aggressiveHeadTracking.getAsInt() == 2 && renderer instanceof PlayerRenderer) {
-            setHeadModelFromRenderer(living, renderer, renderer.getModel());
+            setHeadModelFromRenderer(living, renderer, model);
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    protected void setHeadModelFromRenderer(E living, LivingEntityRenderer renderer, EntityModel model) {
+    protected void setHeadModelFromRenderer(E living, EntityRenderer<E> renderer, EntityModel model) {
         try {
             ModelPart rootModel = getRootModel(model);
             if (rootModel == null) return;
@@ -353,6 +353,7 @@ public class HeadInfo<E extends LivingEntity> {
             GooglyEyes.LOGGER.error("The model not have the {} part of {} in {}", modelNames, model.getClass().getSimpleName(), renderer.getClass().getSimpleName(), e);
         }
     }
+
 
     // The f********king mojang!!!
     @OnlyIn(Dist.CLIENT)

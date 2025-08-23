@@ -7,7 +7,7 @@
     {
       "forClass": "net.minecraft.client.model.PufferfishBigModel",
       "modelNames": [
-        "cube"
+        "body"
       ],
       "eyeOffset": [
         0.0,
@@ -24,7 +24,7 @@
     {
       "forClass": "net.minecraft.client.model.PufferfishMidModel",
       "modelNames": [
-        "cube"
+        "body"
       ],
       "eyeOffset": [
         0.0,
@@ -48,7 +48,7 @@
     {
       "forClass": "net.minecraft.client.model.PufferfishSmallModel",
       "modelNames": [
-        "cube"
+        "body"
       ],
       "eyeOffset": [
         0.0,

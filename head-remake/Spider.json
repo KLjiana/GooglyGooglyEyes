@@ -28,7 +28,7 @@
   ],
   "halfInterpupillaryDistance": 0.0625,
   "eyeScale": 0.8,
-  "eyeCount": 6,
+  "eyeCount": 2,
   "affectedByInvisibility": false,
   "doesEyeGlow": true,
   "headTopCenter": [

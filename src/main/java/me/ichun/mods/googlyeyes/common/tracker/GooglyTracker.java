@@ -5,7 +5,7 @@ import me.ichun.mods.googlyeyes.common.core.ModConfigClient;
 import me.ichun.mods.ichunutil.api.common.head.HeadInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -140,11 +140,11 @@ public class GooglyTracker {
         if (helper.multiModel != null) //It is a HeadInfoDelegate
         {
             EntityRenderer<?> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(parent);
-            if (!(render instanceof LivingEntityRenderer<?, ?> renderer)) {
+            if (!(render instanceof RenderLayerParent<?, ?> layerParent)) {
                 return;
             }
 
-            if (!helper.setup(parent, renderer)) {
+            if (!helper.setup(parent, render, layerParent.getModel())) {
                 return;
             }
         }

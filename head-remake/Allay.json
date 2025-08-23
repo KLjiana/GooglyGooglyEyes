@@ -1,0 +1,14 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.allay.Allay",
+  "modelNames": [
+    "root",
+    "head"
+  ],
+  "eyeOffset": [
+    0,
+    -1.35,
+    0.15
+  ],
+  "halfInterpupillaryDistance": -0.1,
+  "eyeScale": 0.6
+}
