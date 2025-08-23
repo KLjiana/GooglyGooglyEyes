@@ -174,10 +174,8 @@ public class HeadHandler {
                     GooglyEyes.LOGGER.error("Error reading HeadInfo file: {}", file);
                     e.printStackTrace();
                 } catch (ClassNotFoundException ignored) {
+                    GooglyEyes.LOGGER.error("Class not found for HeadInfo file: {}", file);
                 }
-                //                {
-                //                    GooglyEyes.LOGGER.error("Class not found for HeadInfo file: {}", file);
-                //                }
             }
         }
         return count;

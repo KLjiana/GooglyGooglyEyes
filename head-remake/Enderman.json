@@ -1,5 +1,5 @@
 {
-  "forClass": "net.minecraft.world.entity.monster.Enderman",
+  "forClass": "net.minecraft.world.entity.monster.EnderMan",
   "modelNames": [
     "head"
   ],
