@@ -1,0 +1,15 @@
+{
+  "forClass": "net.minecraft.world.entity.animal.axolotl.Axolotl",
+  "modelNames": [
+    "body",
+    "head"
+  ],
+  "eyeYRotation": 45,
+  "eyeOffset": [
+    0.0,
+    -1.2,
+    0.0
+  ],
+  "halfInterpupillaryDistance": 0.23,
+  "eyeScale": 0.7
+}
